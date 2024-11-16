@@ -1,11 +1,24 @@
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 
 const Register = () => {
+    const {createUser} = useContext(AuthContext)
 
     const handleRegister =(e)=>{
+        e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
+        createUser(email, password)
+        .then(result=>{
+            console.log(result.user)
+        })
+        .catch(error=>{
+            console.log('error', error.message)
+        })
+
+        
     }
     return (
         <div>
@@ -25,7 +38,7 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="email" name="Name" placeholder="Name" className="input input-bordered" required />
+                            <input type="text" name="Name" placeholder="Name" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
