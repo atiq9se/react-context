@@ -1,11 +1,22 @@
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 
 const Login = () => {
+
+    const {signInUser} = useContext(AuthContext)
     
     const handleLogin = (e)=>{
-        e.preventDafualt();
+        e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
+        signInUser(email,password)
+        .then(result=>{
+            console.log(result.user)
+        })
+        .catch(error=>{
+            console.log(error.message)
+        })
     }
 
     return (
